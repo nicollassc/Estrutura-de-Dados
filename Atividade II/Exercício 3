@@ -1,0 +1,49 @@
+include <stdio.h>
+#include <string.h>
+
+#define MAX 5
+
+typedef struct {
+    int id_pedido;       // Identificador único
+    char produto[50];    // Nome do item
+    float valor;         // Preço do produto
+} Encomenda;
+
+Encomenda fila[MAX];
+int front = 0, rear = 0;
+
+void enqueue(Encomenda e) {
+    fila[rear++] = e;
+}
+
+Encomenda dequeue() {
+    return fila[front++];
+}
+
+int main() {
+    Encomenda e;
+
+    // Inserindo 5 novas encomendas com dados e cálculos diferentes
+    for (int i = 1; i <= 5; i++) {
+        e.id_pedido = i + 5000;                  // IDs gerados a partir de 5001
+        sprintf(e.produto, "Item_Ref_%d", i);    // Nome padrão do produto
+        e.valor = i * 45.90;                     // Valores simulados de preço
+        enqueue(e);
+    }
+
+    float faturamento_total = 0.0;
+
+    // Processando a fila e calculando o valor total
+    while (front < rear) {
+        Encomenda aux = dequeue();
+        printf("Pedido: #%d | Produto: %s | Valor: R$ %.2f\n",
+               aux.id_pedido, aux.produto, aux.valor);
+       
+        faturamento_total += aux.valor;
+    }
+
+    printf("-----------------------------------------\n");
+    printf("Valor Total dos Pedidos: R$ %.2f\n", faturamento_total);
+
+    return 0;
+}
