@@ -1,0 +1,56 @@
+
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 10
+
+typedef struct {
+    char paciente[50]; // Alterado de 'nome'
+    int idade;
+} Usuario;             // Alterado de 'Pessoa'
+
+Usuario fila_prioritaria[MAX], fila_comum[MAX];
+int p_idx = 0, c_idx = 0;
+
+int main() {
+    Usuario u;
+
+    // Simulação de entrada de pacientes com novos nomes e idades
+    // Paciente 1
+    strcpy(u.paciente, "Fernanda"); u.idade = 34;
+    if (u.idade > 65) fila_prioritaria[p_idx++] = u;
+    else fila_comum[c_idx++] = u;
+
+    // Paciente 2
+    strcpy(u.paciente, "Sr. Oswaldo"); u.idade = 78;
+    if (u.idade > 65) fila_prioritaria[p_idx++] = u;
+    else fila_comum[c_idx++] = u;
+
+    // Paciente 3
+    strcpy(u.paciente, "Beatriz"); u.idade = 19;
+    if (u.idade > 65) fila_prioritaria[p_idx++] = u;
+    else fila_comum[c_idx++] = u;
+
+    // Paciente 4
+    strcpy(u.paciente, "Dona Iolanda"); u.idade = 82;
+    if (u.idade > 65) fila_prioritaria[p_idx++] = u;
+    else fila_comum[c_idx++] = u;
+
+    // Paciente 5
+    strcpy(u.paciente, "Tiago"); u.idade = 41;
+    if (u.idade > 65) fila_prioritaria[p_idx++] = u;
+    else fila_comum[c_idx++] = u;
+
+    // Lógica de Atendimento
+    printf("--- Ordem de Chamada (Posto de Saude) ---\n");
+
+    // Primeiro atende quem tem mais de 65 anos
+    for (int i = 0; i < p_idx; i++)
+        printf("Prioridade Maxima: %s (%d anos)\n", fila_prioritaria[i].paciente, fila_prioritaria[i].idade);
+
+    // Depois atende a fila comum
+    for (int i = 0; i < c_idx; i++)
+        printf("Fila Geral: %s\n", fila_comum[i].paciente);
+
+    return 0;
+}
